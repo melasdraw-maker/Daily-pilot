@@ -1,0 +1,27 @@
+import { UserProfile } from '../types';
+
+export const DEFAULT_USER_PROFILE: UserProfile = {
+  name: 'HACHOUD WARD-SALEM',
+  initials: 'HWS',
+  homeAddress: '14 Rue du Faubourg',
+  workAddress: 'Opéra Formation, Montpellier',
+  homeCity: 'Montpellier',
+  timezone: 'Europe/Paris',
+  language: 'fr',
+  mainTransport: 'car',
+  defaultStartTime: '08:30',
+  prepDurationMinutes: 35,
+  safetyMarginMinutes: 15,
+  avoidTolls: false,
+  routePreference: 'fastest',
+  bedTime: '22:45',
+  minWakeUpTime: '06:00',
+  allowTrafficAlerts: true,
+  workingDays: [1, 2, 3, 4, 5],
+  assistantVoice: 'fr-FR',
+  speechRate: 1.0,
+  detailLevel: 'compact',
+  favoriteQuoteThemes: ['persévérance', 'apprentissage', 'discipline', 'responsabilité', 'service'],
+  hadithEnabled: true,
+  setupCompleted: true,
+};

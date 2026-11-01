@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Daily Pilot - Mon Assistant Personnel Intelligent</title>
+    <meta name="description" content="Assistant personnel intelligent pour formateurs et intervenants mobiles : organisation des missions, trajets, réveil intelligent, briefing vocal et préparation pédagogique." />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="alternate" type="application/manifest+json" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Daily Pilot" />
+    <meta name="application-name" content="Daily Pilot" />
+    <meta property="og:title" content="Daily Pilot - Mon Assistant Personnel Intelligent" />
+    <meta property="og:description" content="Assistant personnel intelligent pour formateurs et intervenants mobiles : organisation des missions, trajets, réveil intelligent, briefing vocal et préparation pédagogique." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Immediate Service Worker registration for PWABuilder & Mobile installability
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(function (reg) {
+              console.log('Daily Pilot Service Worker registered with scope:', reg.scope);
+            })
+            .catch(function (err) {
+              console.warn('Daily Pilot Service Worker registration failed:', err);
+            });
+        });
+      }
+    </script>
+    <script>
+      // 1. Silent Vite HMR WebSocket dummy for cloud proxy environments (HMR disabled in AI Studio)
+      (function () {
+        var NativeWebSocket = window.WebSocket;
+        if (!NativeWebSocket) return;
+
+        window.WebSocket = function (url, protocols) {
+          var isViteHmr =
+            protocols === 'vite-hmr' ||
+            (Array.isArray(protocols) && protocols.indexOf('vite-hmr') !== -1) ||
+            (typeof url === 'string' && (url.indexOf('token=') !== -1 || url.indexOf('vite-hmr') !== -1));
+
+          if (isViteHmr) {
+            var listeners = {};
+            var dummy = {
+              readyState: 1, // OPEN
+              OPEN: 1,
+              CONNECTING: 0,
+              CLOSING: 2,
+              CLOSED: 3,
+              protocol: 'vite-hmr',
+              url: url,
+              addEventListener: function (type, fn) {
+                listeners[type] = listeners[type] || [];
+                listeners[type].push(fn);
+                if (type === 'open') {
+                  setTimeout(function () {
+                    try { fn({ type: 'open', target: dummy }); } catch (e) {}
+                  }, 0);
+                }
+              },
+              removeEventListener: function (type, fn) {
+                if (!listeners[type]) return;
+                listeners[type] = listeners[type].filter(function (cb) { return cb !== fn; });
+              },
+              send: function () {},
+              close: function () {
+                dummy.readyState = 3;
+                if (listeners['close']) {
+                  listeners['close'].forEach(function (cb) {
+                    try { cb({ type: 'close', wasClean: true, code: 1000, target: dummy }); } catch (e) {}
+                  });
+                }
+              },
+            };
+            return dummy;
+          }
+
+          return new NativeWebSocket(url, protocols);
+        };
+
+        window.WebSocket.prototype = NativeWebSocket.prototype;
+        window.WebSocket.OPEN = NativeWebSocket.OPEN;
+        window.WebSocket.CONNECTING = NativeWebSocket.CONNECTING;
+        window.WebSocket.CLOSING = NativeWebSocket.CLOSING;
+        window.WebSocket.CLOSED = NativeWebSocket.CLOSED;
+
+        // 2. Filter benign dev WebSocket messages
+        var origConsoleError = console.error;
+        console.error = function () {
+          var args = Array.prototype.slice.call(arguments);
+          var msg = args.map(String).join(' ');
+          if (msg.indexOf('WebSocket closed without opened') !== -1 || msg.indexOf('[vite] failed to connect to websocket') !== -1) {
+            return;
+          }
+          origConsoleError.apply(console, args);
+        };
+
+        window.addEventListener('error', function (e) {
+          if (e && e.message && (e.message.indexOf('WebSocket') !== -1 || e.message.indexOf('without opened') !== -1)) {
+            e.stopImmediatePropagation();
+          }
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          var reason = e && e.reason ? String(e.reason) : '';
+          if (reason.indexOf('WebSocket') !== -1 || reason.indexOf('without opened') !== -1) {
+            e.preventDefault();
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

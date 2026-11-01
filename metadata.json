@@ -1,0 +1,6 @@
+{
+  "name": "Daily Pilot",
+  "description": "Assistant personnel intelligent pour formateurs et intervenants mobiles : organisation des missions, trajets, réveil intelligent, briefing vocal et préparation pédagogique.",
+  "requestFramePermissions": ["geolocation", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "/",
+  "name": "Daily Pilot - Mon Assistant Personnel Intelligent",
+  "short_name": "Daily Pilot",
+  "description": "Assistant personnel intelligent pour formateurs et intervenants mobiles : organisation des missions, trajets, réveil intelligent, briefing vocal et préparation pédagogique.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "categories": [
+    "productivity",
+    "business",
+    "utilities"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile-1.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Tableau de bord et missions du jour"
+    },
+    {
+      "src": "/screenshot-mobile-2.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Planning hebdomadaire et réveil intelligent"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Missions du jour",
+      "short_name": "Missions",
+      "description": "Consulter les formations du jour et l'itinéraire",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/pwa-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Réveil Intelligent",
+      "short_name": "Réveil",
+      "description": "Calcul automatique de l'heure de levée et alarme",
+      "url": "/?tab=wakeup",
+      "icons": [
+        {
+          "src": "/pwa-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Planning Hebdo",
+      "short_name": "Planning",
+      "description": "Gérer le calendrier et les convocations",
+      "url": "/?tab=planning",
+      "icons": [
+        {
+          "src": "/pwa-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/?action=share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
